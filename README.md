@@ -1,4 +1,4 @@
-# parlant
+# Parlant
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -7,23 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Note:** Replace ```Sander de Kroon``` ```sanderdekroon``` ```https://github.com/sanderdekroon``` ```sander@dekroon.xyz``` ```sanderdekroon``` ```parlant``` ```An expressive way to query posts in WordPress.``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line. You can run `$ php prefill.php` in the command line to make all replacements at once. Delete the file prefill.php as well.
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
+Parlant is a PHP library to query posts within WordPress in an expressive way. Get rid of the messy WP_Query array's and start writing expressive queries.
 
 ## Install
 
@@ -35,9 +19,10 @@ $ composer require sanderdekroon/parlant
 
 ## Usage
 
-``` php
-$skeleton = new sanderdekroon\parlant();
-echo $skeleton->echoPhrase('Hello, League!');
+```php
+use Sanderdekroon\Parlant\Posttype as Post;
+
+$articles = Post::type('article')->get();
 ```
 
 ## Change log
@@ -52,16 +37,11 @@ $ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
 If you discover any security related issues, please email sander@dekroon.xyz instead of using the issue tracker.
-
-## Credits
-
-- [Sander de Kroon][link-author]
-- [All Contributors][link-contributors]
 
 ## License
 
@@ -79,5 +59,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/sanderdekroon/parlant/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/sanderdekroon/parlant
 [link-downloads]: https://packagist.org/packages/sanderdekroon/parlant
-[link-author]: https://github.com/sanderdekroon
-[link-contributors]: ../../contributors
