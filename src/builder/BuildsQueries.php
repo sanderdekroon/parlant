@@ -1,6 +1,6 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Builder;
 
 trait BuildsQueries
 {
@@ -45,7 +45,7 @@ trait BuildsQueries
      */
     public function count()
     {
-        $this->configuration->add('return', 'Sanderdekroon\Parlant\CountFormatter');
+        $this->configuration->add('return', 'Sanderdekroon\Parlant\Formatter\CountFormatter');
         return $this->get();
     }
 

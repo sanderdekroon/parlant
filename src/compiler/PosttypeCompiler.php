@@ -1,9 +1,13 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Compiler;
 
 use Closure;
 use Exception;
+use Sanderdekroon\Parlant\Container;
+use Sanderdekroon\Parlant\Grammar\PosttypeGrammar;
+use Sanderdekroon\Parlant\Formatter\FormatterInterface;
+use Sanderdekroon\Parlant\Configurator\ConfiguratorInterface;
 
 class PosttypeCompiler
 {

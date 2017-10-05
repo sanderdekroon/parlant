@@ -1,6 +1,8 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Compiler;
+
+use Sanderdekroon\Parlant\Builder\NestedMeta;
 
 trait CompilesMeta
 {

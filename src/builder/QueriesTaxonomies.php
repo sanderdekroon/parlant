@@ -1,6 +1,6 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Builder;
 
 use Closure;
 use InvalidArgumentException;

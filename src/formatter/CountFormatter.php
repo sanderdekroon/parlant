@@ -1,6 +1,6 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Formatter;
 
 use WP_Query;
 

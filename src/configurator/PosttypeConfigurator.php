@@ -1,8 +1,8 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Configurator;
 
-use Sanderdekroon\Parlant\ConfiguratorInterface;
+use Sanderdekroon\Parlant\Container;
 
 class PosttypeConfigurator implements ConfiguratorInterface
 {

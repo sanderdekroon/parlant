@@ -1,6 +1,6 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Formatter;
 
 class ArrayFormatter implements FormatterInterface
 {

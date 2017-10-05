@@ -2,6 +2,9 @@
 
 namespace Sanderdekroon\Parlant;
 
+use Sanderdekroon\Parlant\Builder\PosttypeBuilder;
+use Sanderdekroon\Parlant\Builder\BuilderInterface;
+
 class Posttype
 {
 

@@ -1,8 +1,13 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Builder;
 
 use InvalidArgumentException;
+use Sanderdekroon\Parlant\Container;
+use Sanderdekroon\Parlant\Grammar\PosttypeGrammar;
+use Sanderdekroon\Parlant\Compiler\PosttypeCompiler;
+use Sanderdekroon\Parlant\Configurator\PosttypeConfigurator;
+use Sanderdekroon\Parlant\Configurator\ConfiguratorInterface;
 
 class PosttypeBuilder implements BuilderInterface
 {

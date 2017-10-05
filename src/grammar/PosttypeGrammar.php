@@ -1,6 +1,6 @@
 <?php
 
-namespace Sanderdekroon\Parlant;
+namespace Sanderdekroon\Parlant\Grammar;
 
 class PosttypeGrammar
 {
@@ -54,9 +54,9 @@ class PosttypeGrammar
     ];
 
     protected $formatters = [
-        'array'     => 'Sanderdekroon\Parlant\ArrayFormatter',
-        'argument'  => 'Sanderdekroon\Parlant\ArgumentFormatter',
-        'query'     => 'Sanderdekroon\Parlant\QueryFormatter',
+        'array'     => 'Sanderdekroon\Parlant\Formatter\ArrayFormatter',
+        'argument'  => 'Sanderdekroon\Parlant\Formatter\ArgumentFormatter',
+        'query'     => 'Sanderdekroon\Parlant\Formatter\QueryFormatter',
     ];
 
     /**
