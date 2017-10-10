@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Sanderdekroon\Parlant\Container;
 use Sanderdekroon\Parlant\Grammar\PosttypeGrammar;
 use Sanderdekroon\Parlant\Compiler\PosttypeCompiler;
-use Sanderdekroon\Parlant\Configurator\PosttypeConfigurator;
+use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
 use Sanderdekroon\Parlant\Configurator\ConfiguratorInterface;
 
 class PosttypeBuilder implements BuilderInterface
@@ -43,7 +43,7 @@ class PosttypeBuilder implements BuilderInterface
         // supplied an instance of the ConfiguratorInterface, we'll create
         // a new instance of our own implementation of the configurator.
         if (is_null($this->configuration)) {
-            $this->configuration = new PosttypeConfigurator;
+            $this->configuration = new ParlantConfigurator;
         }
 
         return $this->configuration->add($configuration);
@@ -56,7 +56,14 @@ class PosttypeBuilder implements BuilderInterface
             $this->applyDefaultConfiguration();
         }
 
-        $this->configuration->add($key, $value);
+        return $this->updateConfiguration($key, $value);
+    }
+
+
+    protected function updateConfiguration($key, $value)
+    {
+        $this->configuration = $this->configuration->add($key, $value);
+
         return $this;
     }
 
@@ -70,12 +77,12 @@ class PosttypeBuilder implements BuilderInterface
     }
 
     /**
-     * Fill the configuration property with an instance of our PosttypeConfigurator.
-     * @return PosttypeConfigurator
+     * Fill the configuration property with an instance of our ParlantConfigurator.
+     * @return ParlantConfigurator
      */
     protected function applyDefaultConfiguration()
     {
-        return $this->configuration = new PosttypeConfigurator;
+        return $this->configuration = new ParlantConfigurator;
     }
 
     /**
@@ -87,7 +94,7 @@ class PosttypeBuilder implements BuilderInterface
     {
         // Since this is the entry method (for now), we'll assume the developer allready
         // has supplied some form of configuration. If nothing is found, we'll create a
-        // new instance of our PosttypeConfigurator which sets some default settings.
+        // new instance of our ParlantConfigurator which sets some default settings.
         if ($this->requiresConfiguration()) {
             $this->applyDefaultConfiguration();
         }
@@ -239,5 +246,10 @@ class PosttypeBuilder implements BuilderInterface
     public function dumpBindings()
     {
         return $this->bindings->all();
+    }
+
+    public function dumpSettings()
+    {
+        return $this->configuration->dump();
     }
 }
