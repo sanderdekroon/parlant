@@ -62,7 +62,7 @@ class PosttypeBuilder implements BuilderInterface
 
     protected function updateConfiguration($key, $value)
     {
-        $this->configuration = $this->configuration->add($key, $value);
+        $this->configuration->add($key, $value);
 
         return $this;
     }
@@ -99,7 +99,7 @@ class PosttypeBuilder implements BuilderInterface
             $this->applyDefaultConfiguration();
         }
 
-        $this->setBinding('posttype', $posttype);
+        $this->setBinding('post_type', $posttype);
         return $this;
     }
 

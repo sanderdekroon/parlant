@@ -11,7 +11,6 @@ trait BuildsQueries
      */
     public function get()
     {
-        // var_dump($this->bindings);
         return $this->compiler
             ->bind($this->bindings)
             ->withConfiguration($this->configuration)

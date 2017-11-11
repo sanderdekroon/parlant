@@ -80,8 +80,6 @@ class PosttypeCompiler
             }
         }
 
-        // var_dump($this->arguments);
-
         $formatter = $this->getFormatter();
 
         return $formatter->output($this->arguments);
@@ -234,7 +232,7 @@ class PosttypeCompiler
      */
     protected function getPosttype()
     {
-        $posttype = $this->bindings->get('posttype');
+        $posttype = $this->bindings->get('post_type');
         if ($this->wantsAllPosttypes($posttype)) {
             return 'any';
         }
