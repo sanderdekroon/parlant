@@ -18,9 +18,9 @@ interface ConfiguratorInterface
      * @param mixed     $setting
      */
     public function add($name, $setting);
-    
+
     /**
-     * Dump (return) the full configuration.
+     * Dump the configuration. Remove on production.
      * @return array
      */
     public function dump();

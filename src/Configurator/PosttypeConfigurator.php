@@ -7,7 +7,10 @@ use Sanderdekroon\Parlant\Container;
 class PosttypeConfigurator implements ConfiguratorInterface
 {
 
-    protected static $settings;
+    protected static $global;
+
+    protected $local = [];
+
     protected $default = [
         'posts_per_page'    => -1,
         'post_type'         => 'any',
@@ -21,7 +24,7 @@ class PosttypeConfigurator implements ConfiguratorInterface
         // If the developer did not supply an instance of the container, we create a new instance
         // and add the default configuration to it
         if (is_null($settings) || is_array($settings)) {
-            self::$settings = new Container;
+            self::$global = new Container;
             $this->add($this->defaultConfiguration());
         }
 
@@ -40,7 +43,23 @@ class PosttypeConfigurator implements ConfiguratorInterface
      */
     public function get($name)
     {
-        return self::$settings->get($name);
+        if ($this->hasLocal($name)) {
+            return $this->getLocal($name);
+        }
+
+        return self::$global->get($name);
+    }
+
+
+    protected function hasLocal($name)
+    {
+        return array_key_exists($name, $this->local);
+    }
+
+
+    protected function getLocal($name)
+    {
+        return $this->local[$name];
     }
 
     /**
@@ -56,7 +75,13 @@ class PosttypeConfigurator implements ConfiguratorInterface
 
         // Validate setting names?
 
-        return self::$settings->bind($name, $setting);
+        return self::$global->bind($name, $setting);
+    }
+
+
+    public function addLocal($name, $setting = null)
+    {
+        return $this->local[$name] = $setting;
     }
 
     /**
@@ -66,7 +91,7 @@ class PosttypeConfigurator implements ConfiguratorInterface
      */
     public function has($name)
     {
-        return self::$settings->has($name);
+        return self::$global->has($name);
     }
 
     /**
@@ -93,6 +118,6 @@ class PosttypeConfigurator implements ConfiguratorInterface
      */
     public function dump()
     {
-        return self::$settings;
+        return self::$global;
     }
 }
