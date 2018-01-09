@@ -306,9 +306,3 @@ Alternatively, you can supply your own output formatter by supplying the fully n
 `groupBy()` - Will trigger a BadMethodCallException as this is unimplemented.
 
 `inRandomOrder()` - Will trigger a BadMethodCallException as this is unimplemented.
-
-## Branches
-- master: pretty much non-existing.
-- develop: development version of the packagist library
-- plugin: master/stable version of the Parlant WordPress plugin
-- plugin-dev: development version of the Parlant WordPress plugin
