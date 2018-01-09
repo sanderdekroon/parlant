@@ -33,7 +33,7 @@ Parlant's syntax is heavily inspired by [Laravel's Query Builder](https://github
 
 To start building queries, simply start by calling the static method `type()` on the Parlant class. Either pass in the posttype you're querying into the `type()` method or call `all()` to query all posttypes.
 
-These methods return a `PosttypeBuilder` instance on which you can chain multiple methods. End a query by calling `get` to get all results of the query.
+These methods return a `PosttypeBuilder` instance on which you can chain multiple methods. End a query by calling `get()` to get all results of the query.
 
 Although Parlant uses WP_Query in the background, it overrides some of it's default settings. Parlant will, by default, return all found posts (`'posts_per_page' => -1`, remember?) instead of the default. 
 This behavior can be overwritten by changing the settings of Parlant **(@todo ADD LINK)**
@@ -76,6 +76,7 @@ use Sanderdekroon\Parlant\Posttype as Post;
 // Get all articles that are within the category called 'linux', limit to 5 results.
 Post::type('articles')
     ->where('category_name', 'linux')
+    ->limit(5)
     ->get();
 ```
 
@@ -119,7 +120,7 @@ Just like with the operators, you can pass in any of the supported meta types of
 NUMERIC, BINARY, CHAR, DATE, DATETIME,
 DECIMAL, SIGNED, TIME, UNSIGNED
 ```
-Just like with the WP_Query class, it's possible to specify the precision or scale for the DECIMAL and NUMERIC TYPES. For example DECIMAL(10,5) or 'NUMERIC(10) are valid.
+Just like with the WP_Query class, it's possible to specify the precision or scale for the DECIMAL and NUMERIC TYPES. For example 'DECIMAL(10,5)' or 'NUMERIC(10)' are valid.
 #### Meta relation
 It's possible to define the relation between multiple meta queries. Chaining multiple `whereMeta()` methods will create an 'AND' relation by default. Use `orWhereMeta()` to set the relation to 'OR'.
 
@@ -171,7 +172,7 @@ Although it's possible to nest the queries quite deep, I would not recommend to 
 *Just for your own sanity.*
 
 ### Taxonomy queries / Term queries
-Besides custom post meta, it's also possible to query custom taxonomies. Like the meta query, start a taxonomy/term query by using the `whereTerm` method. Start by passing in the taxonomy, then the term field, the operator (optional) and finally the term value.
+Besides custom post meta, it's also possible to query custom taxonomies. Like the meta query, start a taxonomy/term query by using the `whereTerm()` method. Start by passing in the taxonomy, then the term field, the operator (optional) and finally the term value.
 ```php
 // Get all posts within the posttype 'jeans' that are within the term called '37' of the 'size' taxonomy.
 Post::type('jeans')->whereTerm('size', 'term_name', 'IN', 37)->get();
@@ -227,7 +228,7 @@ Post::type('jeans')
 
 
 ## Configuration
-The default configuration of Parlant can be changed at any time, but it's recommended to configure it as early as possible to avoid unexpected results. Changes are made by calling the `configure` method on an instance of Parlant. 
+The default configuration of Parlant can be changed at any time, but it's recommended to configure it as early as possible to avoid unexpected results. Changes are made by calling the `configure()` method on an instance of Parlant. 
 
 These settings are set globally, so there's no need to change the configuration every time you're starting a query.
 
