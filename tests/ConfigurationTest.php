@@ -6,10 +6,11 @@ use WP_Query;
 use PHPUnit\Framework\TestCase;
 use Sanderdekroon\Parlant\Posttype;
 use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
+use Sanderdekroon\Parlant\Configurator\PosttypeConfigurator;
 
 class ConfigurationTest extends TestCase
 {
-
+    /** The return type should be configurable within a method chain */
     public function testCanConfigureReturnType()
     {
         $mock = $this->getMockBuilder('WP_Query')->getMock();
@@ -18,7 +19,7 @@ class ConfigurationTest extends TestCase
         $this->assertInstanceOf('WP_Query', $query);
     }
 
-    
+    /** Any config value should be configurable within a method chain */
     public function testCanConfigureWithinQuery()
     {
         $query = Posttype::any()->setConfig('posts_per_page', 99)->get();
@@ -26,8 +27,8 @@ class ConfigurationTest extends TestCase
         $this->assertEquals(99, $query['posts_per_page']);
     }
 
-    
-    public function testCanConfigureDefaultPosttype()
+    /** Every query should, by default, obey to the global config */
+    public function testCanConfigureGloballyDefaultPosttype()
     {
         ParlantConfigurator::global('post_type', 'comments');
         $configurator = new ParlantConfigurator;
@@ -35,35 +36,44 @@ class ConfigurationTest extends TestCase
         $this->assertEquals('comments', $configurator->get('post_type'));
     }
 
-    
-    // public function testGlobalSettingsCanBeReset()
-    // {
-    //     ParlantConfigurator::reset();
-
-    //     $this->assertNotEquals('comments', $configurator->get('post_type'));
-    // }
-
-    
-    public function testCanConfigureWithArray()
+    /** The global configuration should be settable with an array */
+    public function testCanConfigureGloballyWithArray()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        $settings = [
+            'posts_per_page'    => 1337,
+            'post_status'       => 'draft',
+        ];
+        ParlantConfigurator::global($settings);
+
+        $query = Posttype::any()->get();
+        
+        $this->assertEquals(1337, $query['posts_per_page']);
+        $this->assertEquals('draft', $query['post_status']);
     }
 
-    
+    /** The global configuration should be settable with a Configurator implementation */
     public function testCanConfigureWithConfiguratorImplementation()
     {
+        // $posttypes = new Posttype;
+        // $posttypes->configure(
+        //     new PosttypeConfigurator([
+        //         'posts_per_page'    => '7331',
+        //     ])
+        // );
+        // $query = $posttypes->any()->get();
+
+        // $this->assertEquals(1337, $query['posts_per_page']);
         $this->markTestIncomplete('This test has not been implemented yet.');
     }
 
-    
-    public function testCanSetConfigurationInQuery()
+    /** Reset the global configuration before every test. */
+    public function setup()
     {
-        $this->markTestIncomplete('This test has not been implemented yet.');
-    }
-
-    
-    public function testAppliesDefaultConfiguration()
-    {
-        $this->markTestIncomplete('This test has not been implemented yet.');
+        ParlantConfigurator::global([
+            'posts_per_page'    => -1,
+            'post_type'         => 'any',
+            'post_status'       => 'publish',
+            'return'            => 'argument',
+        ]);
     }
 }

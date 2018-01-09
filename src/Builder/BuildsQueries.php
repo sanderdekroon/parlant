@@ -25,6 +25,14 @@ trait BuildsQueries
     {
         $this->setBinding('posts_per_page', 1);
         $posts = $this->get();
+
+        // If the developer has requested the argument list, we'll return the full array.
+        if ($this->configuration->get('return') == 'argument') {
+            return $posts;
+        }
+
+        // If it's an array, we'll assume it's one post wrapped within an array.
+        // Anything else just gets returned without modification.
         return is_array($posts) ? reset($posts) : $posts;
     }
 
