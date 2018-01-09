@@ -30,7 +30,7 @@ class ConfigurationTest extends TestCase
     /** Every query should, by default, obey to the global config */
     public function testCanConfigureGloballyDefaultPosttype()
     {
-        ParlantConfigurator::global('post_type', 'comments');
+        ParlantConfigurator::globally('post_type', 'comments');
         $configurator = new ParlantConfigurator;
 
         $this->assertEquals('comments', $configurator->get('post_type'));
@@ -43,7 +43,7 @@ class ConfigurationTest extends TestCase
             'posts_per_page'    => 1337,
             'post_status'       => 'draft',
         ];
-        ParlantConfigurator::global($settings);
+        ParlantConfigurator::globally($settings);
 
         $query = Posttype::any()->get();
         
@@ -69,7 +69,7 @@ class ConfigurationTest extends TestCase
     /** Reset the global configuration before every test. */
     public function setup()
     {
-        ParlantConfigurator::global([
+        ParlantConfigurator::globally([
             'posts_per_page'    => -1,
             'post_type'         => 'any',
             'post_status'       => 'publish',

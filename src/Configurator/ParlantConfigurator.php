@@ -57,7 +57,7 @@ class ParlantConfigurator implements ConfiguratorInterface
      * @param  mixed        $value
      * @return bool
      */
-    public static function global($name, $value = null)
+    public static function globally($name, $value = null)
     {
         if (is_array($name)) {
             return self::addArrayOfGlobalSettings($name);

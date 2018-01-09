@@ -15,7 +15,7 @@ class PosttypeTest extends TestCase
     /** Reset the global configuration to the default of our test suite before running these tests */
     public static function setUpBeforeClass()
     {
-        ParlantConfigurator::global([
+        ParlantConfigurator::globally([
             'posts_per_page'    => -1,
             'post_type'         => 'any',
             'post_status'       => 'publish',
