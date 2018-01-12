@@ -1,6 +1,7 @@
 <?php
 
-require 'vendor/autoload.php';
+
+require __DIR__.'/../vendor/autoload.php';
 
 // Configure Parlant to only return the array of arguments.
 // Obviously this is only for testing purposes.
