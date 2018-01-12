@@ -55,4 +55,26 @@ class WhereTest extends TestCase
         // $this->assertTrue($query['meaning'] == 'of life');
         // $this->assertTrue($query['universe'] == 42);
     }
+
+
+    public function testWhereMethodOperatorActuallyWorks()
+    {
+        $this->markTestIncomplete('This test and method has not been implemented yet. Note to self: figure out support for this.');
+        // author__not_in
+        // category__not_in
+        // tag__not_in
+        // post_parent__not_in
+        // post__not_in
+
+        // author__in
+        // category__in
+        // tag__in
+        // tag_slug__in
+        // post_parent__in
+        // post__in
+
+        // category__and
+        // tag__and
+        // tag_slug__and
+    }
 }
