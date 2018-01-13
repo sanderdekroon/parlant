@@ -175,7 +175,7 @@ Although it's possible to nest the queries quite deep, I would not recommend to 
 Besides custom post meta, it's also possible to query custom taxonomies. Like the meta query, start a taxonomy/term query by using the `whereTerm()` method. Start by passing in the taxonomy, then the term field, the operator (optional) and finally the term value.
 ```php
 // Get all posts within the posttype 'jeans' that are within the term called '37' of the 'size' taxonomy.
-Post::type('jeans')->whereTerm('size', 'term_name', 'IN', 37)->get();
+Post::type('jeans')->whereTerm('size', 'name', 'IN', 37)->get();
 ```
 
 Of course you can pass in any of the other tax query operators. Omitting the operator will make Parlant fallback to the default 'IN' operator.
@@ -188,8 +188,8 @@ The relationship handling between multiple taxonomy queries is handled the same 
 For example: we want to query all posts within the posttype 'jeans' but only want the posts where the size is either '32' or '33'. In this example, size is the taxonomy.
 ```php
 Post::type('jeans')
-    ->whereTerm('size', 'term_name', '32')
-    ->orWhereTerm('size', 'term_name', '33')
+    ->whereTerm('size', 'name', '32')
+    ->orWhereTerm('size', 'name', '33')
     ->get();
 ```
 
