@@ -14,9 +14,25 @@ use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
 class WhereMetaTest extends TestCase
 {
     /** Test that a basic where statement adds the values correctly to the query. */
-    public function testWhereKeyIsEqualToValue()
+    public function testWhereMetaKeyIsEqualToValue()
     {
         $query = Posttype::type('post')->whereMeta('foo', '=', 'bar')->get();
+        $this->assertArrayHasKey('meta_query', $query);
+
+        $metaQuery = $query['meta_query'][0]; // Grab the first entry in the meta_query
+        $this->assertArraySubset([
+            'key'       => 'foo',
+            'value'     => 'bar',
+            'compare'   => '=',
+            'type'      => 'CHAR',
+        ], $metaQuery);
+    }
+
+
+    /** Test that a basic where statement adds the values correctly to the query. */
+    public function testWhereMetaCanOmitOperator()
+    {
+        $query = Posttype::type('post')->whereMeta('foo', 'bar')->get();
         $this->assertArrayHasKey('meta_query', $query);
 
         $metaQuery = $query['meta_query'][0]; // Grab the first entry in the meta_query
