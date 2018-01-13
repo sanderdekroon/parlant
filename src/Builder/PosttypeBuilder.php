@@ -204,7 +204,7 @@ class PosttypeBuilder implements BuilderInterface
             return [$operator, $termDefault ? 'IN' : '='];
         }
 
-        if (is_null($value) && $this->invalidOperator($operator)) { //@todo this should be OR not AND(?)
+        if ($this->invalidOperator($operator) && !is_null($value)) {
             throw new InvalidArgumentException('Illegal operator and value combination.');
         }
 
