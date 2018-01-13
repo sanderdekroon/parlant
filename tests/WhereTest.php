@@ -2,6 +2,7 @@
 
 namespace Sanderdekroon\Parlant\Tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sanderdekroon\Parlant\Posttype;
 use Sanderdekroon\Parlant\Builder\PosttypeBuilder;
@@ -12,6 +13,7 @@ use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
  */
 class WhereTest extends TestCase
 {
+    /** Test that a basic where statement adds the values correctly to the query. */
     public function testWhereKeyIsEqualToValue()
     {
         $query = Posttype::any()->where('foo', '=', 'bar')->get();
@@ -19,7 +21,7 @@ class WhereTest extends TestCase
         $this->assertTrue($query['foo'] == 'bar');
     }
 
-
+    /** Test the where shorthand where the equals sign is omitted. */
     public function testWhereKeyIsEqualToValueShorthand()
     {
         $query = Posttype::any()->where('bar', 'baz')->get();
@@ -27,16 +29,15 @@ class WhereTest extends TestCase
         $this->assertTrue($query['bar'] == 'baz');
     }
 
-
+     /** Test that supplying a invalid operator will cause an exception. */
     public function testWhereWithInvalidOperator()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $query = Posttype::any()->where('foo', 'bar', 'baz')->get();
-        
-        $this->assertArrayHasKey('foo', $query);
-        $this->assertTrue($query['foo'] == 'bar');
     }
 
-
+    /** Test passing an array of where statements to the where() method */
     public function testWhereWithArrayOfWheres()
     {
         $this->markTestIncomplete('This test and method has not been implemented yet.');
