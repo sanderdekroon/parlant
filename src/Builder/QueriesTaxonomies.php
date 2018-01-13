@@ -34,8 +34,6 @@ trait QueriesTaxonomies
             return $this;
         }
 
-        var_dump($operator);
-
         // Here we will make some assumptions about the operator. If only 3 values are
         // passed to the method, we will assume that the operator is an equals sign
         // and keep going. Otherwise, we'll require the operator to be passed in.
@@ -46,16 +44,12 @@ trait QueriesTaxonomies
             true // This is needed since tax_query has different default operator.
         );
 
-        var_dump($operator);
-
         // If the given operator is not found in the list of valid operators we will
         // assume that the developer is just short-cutting the '=' operators and
         // we will set the operators to '=' and set the values appropriately.
         if ($this->invalidOperator($operator)) {
             list($value, $operator) = [$operator, 'IN'];
         }
-
-        var_dump($operator);
 
         // Validate the supplied field against the known fields of an taxonomy
         // query within WP_Query. If no valid field is found, we'll default
