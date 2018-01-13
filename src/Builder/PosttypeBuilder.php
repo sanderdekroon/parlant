@@ -122,14 +122,6 @@ class PosttypeBuilder implements BuilderInterface
             (func_num_args() == 2 || is_null($value)) //Is this the best solution?
         );
 
-        // If the columns is actually a Closure instance, we will assume the developer
-        // wants to begin a nested where statement which is wrapped in parenthesis.
-        // We'll add that Closure to the query then return back out immediately.
-        // @todo implement
-        // if ($column instanceof Closure) {
-        //     return $this->whereNested($column, $boolean);
-        // }
-
         // If the given operator is not found in the list of valid operators we will
         // assume that the developer is just short-cutting the '=' operators and
         // we will set the operators to '=' and set the values appropriately.
@@ -157,6 +149,20 @@ class PosttypeBuilder implements BuilderInterface
             'value',
             'boolean'
         ));
+
+        return $this;
+    }
+
+    /**
+     * Add an array of where statements. The array should contain a numeric array
+     * where the values can be used as arguments for the where() method.
+     * @param array $wheres
+     */
+    protected function addArrayOfWheres($wheres)
+    {
+        foreach ($wheres as $where) {
+            $this->where(...$where);
+        }
 
         return $this;
     }
