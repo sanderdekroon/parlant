@@ -252,14 +252,14 @@ ParlantConfigurator::globally(['posts_per_page' => 9]);
 ```
 
 ### Changing output
-Parlant uses Output Formatters to determine how to output the query results. By default it will return an array of WP_Post instances. If you want to start a WP_Query loop, simply change the default settings of Parlant:
+Parlant uses Output Formatters to determine how to output the query results. By default it will return an array of WP_Post instances. If you want to start a `WP_Query` loop, simply change the default settings of Parlant:
 ```php
 use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
 
 ParlantConfigurator::globally(['return' => 'query']);
 ```
 
-This configuration will make Parlant return a WP_Query instance on all queries. If you only want to change the ouput of one query call the `setConfig()` method on a PosttypeBuilder instance:
+This configuration will make Parlant return a WP_Query instance on all queries. If you only want to change the ouput of one query, call the `setConfig()` method on a `PosttypeBuilder `instance:
 ```php
 use Sanderdekroon\Parlant\Posttype as Post;
 
@@ -272,7 +272,7 @@ Parlant has three built in output formatters:
  - `argument`, which will output the raw query arguments
  - `query`, which will output a WP_Query instance
 
-Alternatively, you can supply your own output formatter by supplying the fully namespaced classname. The formatter should adhere to the Sanderdekroon\Parlant\Formatter\FormatterInterface interface which looks like this:
+Alternatively, you can supply your own output formatter by supplying the fully namespaced classname. The formatter should adhere to the `Sanderdekroon\Parlant\Formatter\FormatterInterface` interface which looks like this:
 
 ```php
 namespace Sanderdekroon\Parlant\Formatter;
