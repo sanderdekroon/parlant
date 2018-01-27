@@ -230,27 +230,81 @@ Post::type('jeans')
 ## Configuration
 The default configuration of Parlant can be changed at any time, but it's recommended to configure it as early as possible to avoid unexpected results. Changes are made by calling the `configure()` method on an instance of Parlant. 
 
-These settings are set globally, so there's no need to change the configuration every time you're starting a query.
+These settings are set globally, so there's no need to change the configuration every time you're starting a query. Parlant configures itself to return all posts which are published and returns found posts as an array of `WP_POST` instances.
+
+```php
+use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
+
+ParlantConfigurator::globally([
+    'posts_per_page'    => -1,
+    'post_type'         => 'any',
+    'post_status'       => 'publish',
+    'return'            => 'array',
+]);
+```
+> **Note:** This is the default configuration, there's no need to copy this exact code. Use it as a reference or starting point.
+
+Now let's change the default posts_per_page from -1 to 9.
+```php
+use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
+
+ParlantConfigurator::globally(['posts_per_page' => 9]);
+```
 
 ### Changing output
 Parlant uses Output Formatters to determine how to output the query results. By default it will return an array of WP_Post instances. If you want to start a WP_Query loop, simply change the default settings of Parlant:
 ```php
+use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
+
+ParlantConfigurator::globally(['return' => 'query']);
+```
+
+This configuration will make Parlant return a WP_Query instance on all queries. If you only want to change the ouput of one query call the `setConfig()` method on a PosttypeBuilder instance:
+```php
 use Sanderdekroon\Parlant\Posttype as Post;
 
-$posttypes = new Post;
-$posttypes->configure(
-    new PosttypeConfigurator([
-        'return'    => 'query',
-    ])
-);
+Post::any()->setConfig('return', 'query')->get();
 ```
+
 Parlant has three built in output formatters:
 
  - `array`, which will output an array of WP_Post instances
  - `argument`, which will output the raw query arguments
  - `query`, which will output a WP_Query instance
- 
-Alternatively, you can supply your own output formatter by supplying the fully namespaced classname. Remember that it should adhere to the `FormatterInterface` interface. **(@todo ADD LINK + EXPLANATION)**
+
+Alternatively, you can supply your own output formatter by supplying the fully namespaced classname. The formatter should adhere to the Sanderdekroon\Parlant\Formatter\FormatterInterface interface which looks like this:
+
+```php
+namespace Sanderdekroon\Parlant\Formatter;
+
+interface FormatterInterface
+{
+
+    public function output(array $queryArguments);
+}
+```
+
+The `output()` method always receives an array of arguments. As an example, the query formatter looks like this:
+```php
+namespace Sanderdekroon\Parlant\Formatter;
+
+use WP_Query;
+
+class QueryFormatter implements FormatterInterface
+{
+    /**
+     * Return an instance of WP_Query
+     * @param  array  $arguments
+     * @return WP_Query
+     */
+    public function output(array $arguments)
+    {
+        $query = new WP_Query($arguments);
+
+        return $query;
+    }
+}
+```
 
 ## Methods
 
