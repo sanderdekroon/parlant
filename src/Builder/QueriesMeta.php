@@ -92,7 +92,7 @@ trait QueriesMeta
      */
     protected function extractNestedMetaClosures($closure)
     {
-        $nestedMeta = $closure->call(new NestedMeta);
+        $nestedMeta = $closure->bindTo(new NestedMeta)();
 
         $query = $nestedMeta->getQuery();
         foreach ($query as $key => $meta) {
