@@ -1,3 +1,5 @@
 index.php
 /vendor
 composer.lock
+/executed.txt
+/clover.xml
