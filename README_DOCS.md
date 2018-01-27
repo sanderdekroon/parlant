@@ -138,12 +138,12 @@ Continuing from the example above, we want to get all shirts where the size is e
 ```php
 Post::type('shirts')
     ->whereMeta(function() {
-        return $this->relation('OR')->where('size', 'M')->where('size', 'L');
+        return $this->where('size', 'M')->orWhere('size', 'L');
     })
     ->whereMeta('color', 'red')
     ->get();
 ```
-When using a closure, use the `relation()` method to specify the relation between the queries. The default is AND.
+When using a closure, use `orWhere()` to specify an OR relation between the nested queries. The default is AND.
 > **Note:** Parlant knows that the closure is within the `whereMeta()` method, therefor it's not needed to call `whereMeta()` within the closure. Instead, you can just call the `where()` method. 
 
 > **Note:** Just like with a normal `whereMeta()` method, you can still pass in different operators and meta types. 

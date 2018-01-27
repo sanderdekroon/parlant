@@ -115,7 +115,7 @@ class WhereMetaTest extends TestCase
     {
         $query = Posttype::any()
             ->whereMeta(function () {
-                return $this->relation('OR')->where('size', 'M')->where('size', 'L');
+                return $this->where('size', 'M')->orWhere('size', 'L');
             })
             ->whereMeta('color', 'red')
             ->get();

@@ -31,6 +31,13 @@ class NestedMeta
     }
 
 
+    public function orWhere(...$arguments)
+    {
+        $this->setRelation('OR');
+        return $this->where(...$arguments);
+    }
+
+
     public function relation($relation)
     {
         $this->setRelation($relation);
