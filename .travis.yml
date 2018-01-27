@@ -31,4 +31,5 @@ script:
   - phpunit
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash) -t b305a56f-4150-4f76-b7df-5ab4f82a555f
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
