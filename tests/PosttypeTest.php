@@ -2,6 +2,7 @@
 
 namespace Sanderdekroon\Parlant\Tests;
 
+use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
 use Sanderdekroon\Parlant\Posttype;
 use Sanderdekroon\Parlant\Builder\PosttypeBuilder;
@@ -89,5 +90,27 @@ class PosttypeTest extends TestCase
 
         $this->assertArrayHasKey('post_type', $query);
         $this->assertEquals('posttype', $query['post_type']);
+    }
+
+
+    public function testAvgMethod()
+    {
+        $this->expectException(BadMethodCallException::class);
+
+        $query = Posttype::type('post')->avg();
+    }
+
+    public function testMaxMethod()
+    {
+        $this->expectException(BadMethodCallException::class);
+
+        $query = Posttype::type('post')->max();
+    }
+
+    public function testMinMethod()
+    {
+        $this->expectException(BadMethodCallException::class);
+
+        $query = Posttype::type('post')->min();
     }
 }
