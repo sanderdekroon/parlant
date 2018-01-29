@@ -13,10 +13,21 @@ class ConfigurationTest extends TestCase
     /** The return type should be configurable within a method chain */
     public function testCanConfigureReturnType()
     {
-        $mock = $this->getMockBuilder('WP_Query')->getMock();
+        $this->getMockBuilder('WP_Query')->getMock();
 
         $query = Posttype::any()->setConfig('return', 'query')->get();
         $this->assertInstanceOf('WP_Query', $query);
+    }
+
+    /** The return type should be configurable as an array of WP_Post instances. */
+    public function testCanConfigureArrayReturnType()
+    {
+        $this->getMockBuilder('WP_Post')->getMock();
+        
+        $query = Posttype::any()->setConfig('return', 'array')->get();
+
+        $this->assertTrue(is_array($query));
+        $this->assertInstanceOf('WP_Post', reset($query));
     }
 
     /** Any config value should be configurable within a method chain */
