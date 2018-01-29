@@ -65,6 +65,24 @@ class PosttypeTest extends TestCase
         $this->assertEquals(42, $query['p']);
     }
 
+
+    public function testLimitMethod()
+    {
+        $query = Posttype::any()->limit(5)->get();
+
+        $this->assertArrayHasKey('posts_per_page', $query);
+        $this->assertEquals(5, $query['posts_per_page']);
+    }
+
+
+    public function testOffsetMethod()
+    {
+        $query = Posttype::any()->offset(10)->get();
+
+        $this->assertArrayHasKey('offset', $query);
+        $this->assertEquals(10, $query['offset']);
+    }
+
     /** Test the all() method on the end of a builder chain */
     public function testAllMethodOnBuilderReturnsAllPosts()
     {
