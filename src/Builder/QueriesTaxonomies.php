@@ -93,7 +93,7 @@ trait QueriesTaxonomies
      */
     protected function extractNestedTaxonomyClosures($closure, $taxonomyName = null)
     {
-        $nestedTaxonomy = $closure->bindTo(new NestedTaxonomy($taxonomyName))();
+        $nestedTaxonomy = call_user_func($closure->bindTo(new NestedTaxonomy($taxonomyName)));
 
         $query = $nestedTaxonomy->getQuery();
         foreach ($query as $key => $taxonomy) {
