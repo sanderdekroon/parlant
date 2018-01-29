@@ -14,6 +14,7 @@ class PosttypeCompiler
     use CompilesMeta, CompilesTaxonomies;
 
     protected $grammar;
+    protected $bindings;
     protected $arguments = [];
     protected $container;
     protected $configuration;
@@ -175,7 +176,7 @@ class PosttypeCompiler
     /**
      * Get the compiling method. Basically prepends 'compile'.
      * @param  string $type
-     * @return string       Method name, or false if it does not exist.
+     * @return string|false       Method name, or false if it does not exist.
      */
     private function getCompilingMethod($type)
     {
@@ -219,7 +220,7 @@ class PosttypeCompiler
 
     /**
      * Compile limit to valid query arguments. Basically transforms limit to posts_per_page.
-     * @return [type] [description]
+     * @return void
      */
     protected function compileLimit($limit)
     {

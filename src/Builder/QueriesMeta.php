@@ -7,6 +7,8 @@ use InvalidArgumentException;
 
 trait QueriesMeta
 {
+
+    protected $grammar;
     
     /**
      * Query the meta values (custom post fields) of posts.
@@ -198,4 +200,14 @@ trait QueriesMeta
 
         return strtoupper($type);
     }
+
+    protected abstract function setBinding();
+    
+    protected abstract function getBinding();
+    
+    protected abstract function appendBinding();
+    
+    protected abstract function invalidOperator();
+    
+    protected abstract function prepareValueAndOperator();
 }

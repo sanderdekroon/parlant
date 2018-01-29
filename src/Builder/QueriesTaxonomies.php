@@ -8,6 +8,8 @@ use InvalidArgumentException;
 trait QueriesTaxonomies
 {
 
+    protected $grammar;
+
     public function whereTaxonomy($taxonomy, $field = null, $operator = null, $value = null, $includeChildren = true, $relation = null, $level = 1)
     {
         // If the taxonomy is an array, we will assume it is an array of key-value pairs
@@ -199,4 +201,14 @@ trait QueriesTaxonomies
 
         return strtolower($field);
     }
+
+    protected abstract function setBinding();
+    
+    protected abstract function getBinding();
+    
+    protected abstract function appendBinding();
+    
+    protected abstract function invalidOperator();
+    
+    protected abstract function prepareValueAndOperator();
 }

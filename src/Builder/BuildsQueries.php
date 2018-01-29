@@ -4,6 +4,10 @@ namespace Sanderdekroon\Parlant\Builder;
 
 trait BuildsQueries
 {
+    protected $grammar;
+    protected $compiler;
+    protected $bindings;
+    protected $configuration;
 
     /**
      * Get the posts by passing the bindings, configuration and building the arguments.
@@ -96,4 +100,7 @@ trait BuildsQueries
     {
         throw new \BadMethodCallException('Accessing unimplemented method.');
     }
+
+
+    protected abstract function setBinding();
 }

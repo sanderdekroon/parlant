@@ -77,4 +77,6 @@ trait CompilesMeta
     {
         return $this->addArgument('meta_query', ['relation' => reset($relations)], true);
     }
+
+    protected abstract function addArgument();
 }

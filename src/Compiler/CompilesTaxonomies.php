@@ -78,4 +78,6 @@ trait CompilesTaxonomies
     {
         return $this->addArgument('tax_query', ['relation' => reset($relations)], true);
     }
+
+    protected abstract function addArgument();
 }
