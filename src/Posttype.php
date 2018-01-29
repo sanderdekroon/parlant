@@ -45,6 +45,16 @@ class Posttype
     }
 
     /**
+     * Shortcut for returning all published posts (depending on configuration) within a posttype.
+     * @param  string $posttype
+     * @return mixed
+     */
+    public static function all($posttype)
+    {
+        return self::type($posttype)->all();
+    }
+
+    /**
      * Create a new instance of the builder, set it as static property and return it.
      * This makes sure that a new builder is created when a new query is created.
      * @return PosttypeBuilder

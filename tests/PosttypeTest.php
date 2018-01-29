@@ -63,4 +63,31 @@ class PosttypeTest extends TestCase
         $this->assertArrayHasKey('p', $query);
         $this->assertEquals(42, $query['p']);
     }
+
+    /** Test the all() method on the end of a builder chain */
+    public function testAllMethodOnBuilderReturnsAllPosts()
+    {
+        $query = Posttype::type('posttype')->all();
+
+        $this->assertArrayHasKey('posts_per_page', $query);
+        $this->assertEquals(-1, $query['posts_per_page']);
+    }
+
+    /** Test the static all() shortcut method */
+    public function testStaticAllMethodReturnsAllPosts()
+    {
+        $query = Posttype::all('posttype');
+
+        $this->assertArrayHasKey('posts_per_page', $query);
+        $this->assertEquals(-1, $query['posts_per_page']);
+    }
+
+    /** Test the static all() shortcut method */
+    public function testStaticAllMethodSetsPosttype()
+    {
+        $query = Posttype::all('posttype');
+
+        $this->assertArrayHasKey('post_type', $query);
+        $this->assertEquals('posttype', $query['post_type']);
+    }
 }
