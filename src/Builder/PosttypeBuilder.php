@@ -248,14 +248,4 @@ class PosttypeBuilder implements BuilderInterface
     {
         return $this->bindings->get($key);
     }
-
-    public function dumpBindings()
-    {
-        return $this->bindings->all();
-    }
-
-    public function dumpSettings()
-    {
-        return $this->configuration->dump();
-    }
 }
