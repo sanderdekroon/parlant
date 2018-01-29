@@ -57,17 +57,6 @@ trait BuildsQueries
     }
 
     /**
-     * Find a post by it's ID
-     * @param  int    $id
-     * @return \WP_Post
-     */
-    public function find(int $id)
-    {
-        $this->setBinding('p', $id);
-        return $this->first();
-    }
-
-    /**
      * Pluck the values of the supplied column name
      * @return array
      */
@@ -76,6 +65,8 @@ trait BuildsQueries
         if (!in_array($columnname, $this->grammar->getPostProperties())) {
             throw new \InvalidArgumentException('Invalid columnname '.$columnname);
         }
+
+        $this->configuration->add('return', 'Sanderdekroon\Parlant\Formatter\ArrayFormatter');
 
         return array_map(function ($post) use ($columnname) {
             return $post->$columnname;
