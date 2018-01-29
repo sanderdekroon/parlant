@@ -9,7 +9,7 @@ trait QueriesMeta
 {
     /**
      * Query the meta values (custom post fields) of posts.
-     * @param  string       $column         The field name
+     * @param  string|array|Closure $column         The field name, an array of where clauses or an Closure detailing a nested where clause.
      * @param  string       $operator
      * @param  mixed        $value
      * @param  string       $type           The type comparison, for example NUMERIC or CHAR
@@ -198,15 +198,15 @@ trait QueriesMeta
         return strtoupper($type);
     }
 
-    protected abstract function setBinding();
+    protected abstract function setBinding($key, $data);
     
-    protected abstract function getBinding();
+    protected abstract function getBinding($key);
 
     protected abstract function getGrammar();
     
-    protected abstract function appendBinding();
+    protected abstract function appendBinding($key, $data);
     
-    protected abstract function invalidOperator();
+    protected abstract function invalidOperator($operator);
     
-    protected abstract function prepareValueAndOperator();
+    protected abstract function prepareValueAndOperator($value, $operator, $useDefault = false, $termDefault = false);
 }

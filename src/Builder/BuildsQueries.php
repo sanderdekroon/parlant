@@ -61,7 +61,7 @@ trait BuildsQueries
      */
     public function pluck(string $columnname)
     {
-        if (!in_array($columnname, $this->grammar->getPostProperties())) {
+        if (!in_array($columnname, $this->getGrammar()->getPostProperties())) {
             throw new \InvalidArgumentException('Invalid columnname '.$columnname);
         }
 
@@ -97,7 +97,7 @@ trait BuildsQueries
     }
 
 
-    protected abstract function setBinding();
+    protected abstract function setBinding($key, $data);
 
     protected abstract function getGrammar();
     

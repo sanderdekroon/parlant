@@ -107,10 +107,9 @@ class PosttypeBuilder implements BuilderInterface
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
         // If the column is an array, we will assume it is an array of key-value pairs
-        // and can add them each as a where clause. We will maintain the boolean we
-        // received when the method was called and pass it into the nested where.
+        // and can add them each as a where clause.
         if (is_array($column)) {
-            return $this->addArrayOfWheres($column, $boolean);
+            return $this->addArrayOfWheres($column);
         }
 
         // Here we will make some assumptions about the operator. If only 2 values are
@@ -161,10 +160,22 @@ class PosttypeBuilder implements BuilderInterface
     protected function addArrayOfWheres($wheres)
     {
         foreach ($wheres as $where) {
-            $this->where(...$where);
+            list($column, $operator, $value, $boolean) = $this->extractWhereValuesFromArray($where);
+            $this->where($column, $operator, $value, $boolean);
         }
 
         return $this;
+    }
+
+    
+    protected function extractWhereValuesFromArray($array)
+    {
+        return [
+            isset($array[0]) ? $array[0] : null,
+            isset($array[1]) ? $array[1] : null,
+            isset($array[2]) ? $array[2] : null,
+            isset($array[3]) ? $array[3] : null,
+        ];
     }
 
     /**

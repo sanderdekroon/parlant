@@ -31,10 +31,10 @@ class NestedMeta
     }
 
 
-    public function orWhere(...$arguments)
+    public function orWhere($column, $operator = null, $value = null, $type = null)
     {
         $this->setRelation('OR');
-        return $this->where(...$arguments);
+        return $this->where($column, $operator, $value, $type);
     }
 
 

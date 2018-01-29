@@ -253,7 +253,7 @@ class PosttypeCompiler
 
     /**
      * Add an argument to the arguments list.
-     * @param string    $name
+     * @param string|array    $name
      * @param mixed     $argument
      * @param bool      $multidimensional
      */
