@@ -4,20 +4,15 @@ namespace Sanderdekroon\Parlant\Builder;
 
 trait BuildsQueries
 {
-    protected $grammar;
-    protected $compiler;
-    protected $bindings;
-    protected $configuration;
-
     /**
      * Get the posts by passing the bindings, configuration and building the arguments.
      * @return mixed
      */
     public function get()
     {
-        return $this->compiler
-            ->bind($this->bindings)
-            ->withConfiguration($this->configuration)
+        return $this->getCompiler()
+            ->bind($this->getBindings())
+            ->withConfiguration($this->getConfiguration())
             ->build();
     }
 
@@ -31,7 +26,7 @@ trait BuildsQueries
         $posts = $this->get();
 
         // If the developer has requested the argument list, we'll return the full array.
-        if ($this->configuration->get('return') == 'argument') {
+        if ($this->getConfiguration()->get('return') == 'argument') {
             return $posts;
         }
 
@@ -56,7 +51,7 @@ trait BuildsQueries
      */
     public function count()
     {
-        $this->configuration->add('return', 'Sanderdekroon\Parlant\Formatter\CountFormatter');
+        $this->getConfiguration()->add('return', 'Sanderdekroon\Parlant\Formatter\CountFormatter');
         return $this->get();
     }
 
@@ -70,7 +65,7 @@ trait BuildsQueries
             throw new \InvalidArgumentException('Invalid columnname '.$columnname);
         }
 
-        $this->configuration->add('return', 'Sanderdekroon\Parlant\Formatter\ArrayFormatter');
+        $this->getConfiguration()->add('return', 'Sanderdekroon\Parlant\Formatter\ArrayFormatter');
 
         return array_map(function ($post) use ($columnname) {
             return $post->$columnname;
@@ -103,4 +98,12 @@ trait BuildsQueries
 
 
     protected abstract function setBinding();
+
+    protected abstract function getGrammar();
+    
+    protected abstract function getCompiler();
+    
+    protected abstract function getBindings();
+    
+    protected abstract function getConfiguration();
 }

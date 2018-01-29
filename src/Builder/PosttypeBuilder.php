@@ -25,7 +25,7 @@ class PosttypeBuilder implements BuilderInterface
     public function __construct(Container $container = null)
     {
         $this->grammar = new PosttypeGrammar; // Replace via DI
-        $this->compiler = new PosttypeCompiler($this->grammar); // Replace via DI
+        $this->compiler = new PosttypeCompiler($this->getGrammar()); // Replace via DI
         $this->bindings = $container ?: new Container;
     }
 
@@ -42,7 +42,7 @@ class PosttypeBuilder implements BuilderInterface
         // If the developer wants to add additional configuration but has not
         // supplied an instance of the ConfiguratorInterface, we'll create
         // a new instance of our own implementation of the configurator.
-        if (is_null($this->configuration)) {
+        if (is_null($this->getConfiguration())) {
             $this->configuration = new ParlantConfigurator;
         }
 
@@ -62,7 +62,7 @@ class PosttypeBuilder implements BuilderInterface
 
     protected function updateConfiguration($key, $value)
     {
-        $this->configuration->add($key, $value);
+        $this->getConfiguration()->add($key, $value);
 
         return $this;
     }
@@ -73,7 +73,7 @@ class PosttypeBuilder implements BuilderInterface
      */
     protected function requiresConfiguration()
     {
-        return is_null($this->configuration);
+        return is_null($this->getConfiguration());
     }
 
     /**
@@ -211,6 +211,26 @@ class PosttypeBuilder implements BuilderInterface
         return [$value, $operator];
     }
 
+    protected function getGrammar()
+    {
+        return $this->grammar;
+    }
+
+    protected function getCompiler()
+    {
+        return $this->compiler;
+    }
+
+    protected function getBindings()
+    {
+        return $this->bindings;
+    }
+
+    protected function getConfiguration()
+    {
+        return $this->configuration;
+    }
+
     /**
      * Determine if an operator is invalid or unsupported
      * @param  string $operator
@@ -218,7 +238,7 @@ class PosttypeBuilder implements BuilderInterface
      */
     private function invalidOperator($operator)
     {
-        return !in_array($operator, $this->grammar->getOperators());
+        return !in_array($operator, $this->getGrammar()->getOperators());
     }
 
     /**
@@ -229,7 +249,7 @@ class PosttypeBuilder implements BuilderInterface
      */
     private function setBinding($key, $data)
     {
-        return $this->bindings->bind($key, $data);
+        return $this->getBindings()->bind($key, $data);
     }
 
     /**
@@ -240,12 +260,12 @@ class PosttypeBuilder implements BuilderInterface
      */
     private function appendBinding($key, $data)
     {
-        return $this->bindings->append($key, $data);
+        return $this->getBindings()->append($key, $data);
     }
 
 
     private function getBinding($key)
     {
-        return $this->bindings->get($key);
+        return $this->getBindings()->get($key);
     }
 }

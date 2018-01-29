@@ -7,9 +7,6 @@ use InvalidArgumentException;
 
 trait QueriesTaxonomies
 {
-
-    protected $grammar;
-
     public function whereTaxonomy($taxonomy, $field = null, $operator = null, $value = null, $includeChildren = true, $relation = null, $level = 1)
     {
         // If the taxonomy is an array, we will assume it is an array of key-value pairs
@@ -195,7 +192,7 @@ trait QueriesTaxonomies
      */
     protected function getValidTermField($field = null)
     {
-        if (is_null($field) || !in_array($field, $this->grammar->getTaxonomyFields())) {
+        if (is_null($field) || !in_array($field, $this->getGrammar()->getTaxonomyFields())) {
             return 'term_id';
         }
 
@@ -205,6 +202,8 @@ trait QueriesTaxonomies
     protected abstract function setBinding();
     
     protected abstract function getBinding();
+
+    protected abstract function getGrammar();
     
     protected abstract function appendBinding();
     

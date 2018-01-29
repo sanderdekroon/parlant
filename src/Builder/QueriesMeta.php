@@ -7,9 +7,6 @@ use InvalidArgumentException;
 
 trait QueriesMeta
 {
-
-    protected $grammar;
-    
     /**
      * Query the meta values (custom post fields) of posts.
      * @param  string       $column         The field name
@@ -194,7 +191,7 @@ trait QueriesMeta
      */
     protected function getValidMetaType($type = null)
     {
-        if (is_null($type) || !in_array($type, $this->grammar->getComparators())) {
+        if (is_null($type) || !in_array($type, $this->getGrammar()->getComparators())) {
             return 'CHAR';
         }
 
@@ -204,6 +201,8 @@ trait QueriesMeta
     protected abstract function setBinding();
     
     protected abstract function getBinding();
+
+    protected abstract function getGrammar();
     
     protected abstract function appendBinding();
     
