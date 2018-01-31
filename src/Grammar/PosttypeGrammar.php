@@ -45,7 +45,6 @@ class PosttypeGrammar
 
     protected $argumentSynonyms = [
         'status'    => 'post_status',
-        
     ];
 
     protected $postProperties = [

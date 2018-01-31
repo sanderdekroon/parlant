@@ -29,7 +29,7 @@ trait QueriesMeta
         // If the column parameter is a closure we'll start a nested meta query.
         if ($column instanceof Closure) {
             $nestedMetas = $this->extractNestedMetaClosures($column);
-            $this->appendBinding('whereMetas', $this->whereNestedMeta($nestedMetas, $relation));
+            $this->appendBinding('whereMetas', $this->whereNestedMeta($nestedMetas));
 
             return $this;
         }

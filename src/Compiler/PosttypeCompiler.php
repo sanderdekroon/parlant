@@ -256,29 +256,35 @@ class PosttypeCompiler
      * @param string|array    $name
      * @param mixed     $argument
      * @param bool      $multidimensional
+     * @return $this
      */
     protected function addArgument($name, $argument = null, $multidimensional = false)
     {
         if (is_array($name)) {
-            return $this->addArrayOfArguments($name);
+            $this->addArrayOfArguments($name);
+            return $this;
         }
 
         if ($multidimensional) {
-            return $this->arguments = array_merge_recursive($this->arguments, [$name => $argument]);
+            $this->arguments = array_merge_recursive($this->arguments, [$name => $argument]);
+            return $this;
         }
 
-        return $this->arguments = array_merge($this->arguments, [$name => $argument]);
+        $this->arguments = array_merge($this->arguments, [$name => $argument]);
+        return $this;
     }
 
     /**
      * Add an array of arguments to the list.
      * @param array $arguments
-     * @param  bool $multidimensional
+     * @param $this
      */
     protected function addArrayOfArguments($arguments, $multidimensional = false)
     {
         foreach ($arguments as $name => $argument) {
             $this->addArgument($name, $argument, $multidimensional);
         }
+
+        return $this;
     }
 }
