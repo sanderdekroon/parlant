@@ -2,8 +2,10 @@
 
 namespace Sanderdekroon\Parlant\Builder;
 
+use BadMethodCallException;
 use InvalidArgumentException;
 use Sanderdekroon\Parlant\Container;
+use Sanderdekroon\Parlant\Adapter\Query as QueryAdapter;
 use Sanderdekroon\Parlant\Grammar\PosttypeGrammar;
 use Sanderdekroon\Parlant\Compiler\PosttypeCompiler;
 use Sanderdekroon\Parlant\Configurator\ParlantConfigurator;
@@ -19,6 +21,8 @@ class PosttypeBuilder implements BuilderInterface
     protected $compiler;
     protected $bindings;
 
+    protected $queryAdapter;
+
     protected $configuration;
 
 
@@ -26,7 +30,43 @@ class PosttypeBuilder implements BuilderInterface
     {
         $this->grammar = new PosttypeGrammar; // Replace via DI
         $this->compiler = new PosttypeCompiler($this->getGrammar()); // Replace via DI
+        $this->queryAdapter = new QueryAdapter(); //Replace via DI
         $this->bindings = $container ?: new Container;
+    }
+
+
+    public function __call($name, $arguments)
+    {
+        if (method_exists($this, $name)) {
+            return $this->$name(...$arguments);
+        }
+
+        if ($this->isTranslatable($name)) {
+            return $this->translateAndSetQueryBinding($name, $arguments);
+        }
+
+        throw BadMethodCallException("Method {$name} does not exists on ".__CLASS__);
+    }
+
+
+    protected function getQueryAdapter()
+    {
+        return $this->queryAdapter;
+    }
+
+
+    protected function isTranslatable($name)
+    {
+        return $this->getQueryAdapter()->isTranslatable($name);
+    }
+
+
+    protected function translateAndSetQueryBinding($name, $value)
+    {
+        list($queryKey, $queryValue) = $this->getQueryAdapter()->translate($name, $value);
+        $this->setBinding($queryKey, $queryValue);
+
+        return $this;
     }
 
 
