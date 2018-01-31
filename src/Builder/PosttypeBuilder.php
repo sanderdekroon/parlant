@@ -104,7 +104,7 @@ class PosttypeBuilder implements BuilderInterface
     }
 
 
-    public function where($column, $operator = null, $value = null, $boolean = 'and')
+    public function where($column, $operator = null, $value = null)
     {
         // If the column is an array, we will assume it is an array of key-value pairs
         // and can add them each as a where clause.
@@ -145,8 +145,7 @@ class PosttypeBuilder implements BuilderInterface
             'type',
             'column',
             'operator',
-            'value',
-            'boolean'
+            'value'
         ));
 
         return $this;
