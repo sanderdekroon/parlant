@@ -30,7 +30,7 @@ class WhereMetaClause
     public function build($column, $operator = null, $value = null, $type = null, $relation = null, $level = 1)
     {
         /** @todo Rewrite */
-        $this->relation = [$level => $relation];
+        $this->relation = [$level => empty($relation) ? 'AND' : $relation];
 
         // If the column is an array, we will assume it is an array of key-value pairs
         // and can add them each as a where clause. We will maintain the boolean we
