@@ -111,16 +111,17 @@ BETWEEN, NOT BETWEEN, NOT EXISTS, REGEXP, NOT REGEXP, RLIKE
 ```
 
 #### Meta type
-You can also specify the meta type to query for. If you're supplying a meta type, you have to supply an operator. The default meta type is 'CHAR' which should suffice in the most (basic) situations.
+You can also specify the meta type to query for. If you're supplying a meta type, you have to supply an operator.
 ```php
 Post::type('shoes')->whereMeta('size', '=', 37, 'NUMERIC')->get();
 ```
-Just like with the operators, you can pass in any of the supported meta types of WP_Query. For reference, the types are:
+The default meta type is 'CHAR' which should suffice in the most (basic) situations. 
+You can pass in any of the supported meta types of WP_Query. For reference, the types are:
 ```
 NUMERIC, BINARY, CHAR, DATE, DATETIME,
 DECIMAL, SIGNED, TIME, UNSIGNED
 ```
-Just like with the WP_Query class, it's possible to specify the precision or scale for the DECIMAL and NUMERIC TYPES. For example 'DECIMAL(10,5)' or 'NUMERIC(10)' are valid.
+Just like with the WP_Query class, it's possible to specify the precision or scale for the DECIMAL and NUMERIC TYPES. For example 'DECIMAL(10,5)' or 'NUMERIC(10)' are valid meta types.
 #### Meta relation
 It's possible to define the relation between multiple meta queries. Chaining multiple `whereMeta()` methods will create an 'AND' relation by default. Use `orWhereMeta()` to set the relation to 'OR'.
 
