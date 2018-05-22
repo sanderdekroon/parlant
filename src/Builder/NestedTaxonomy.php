@@ -97,6 +97,13 @@ class NestedTaxonomy
     }
 
 
+    public function orWhere($taxonomy, $field, $operator = null, $value = null, $includeChildren = true)
+    {
+        $this->setRelation('OR');
+        return $this->where($taxonomy, $field, $operator, $value, $includeChildren);
+    }
+
+
     public function relation($relation)
     {
         $this->setRelation($relation);
