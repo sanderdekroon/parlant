@@ -73,8 +73,6 @@ class WhereMetaClause
             'type',     // CHAR, BINARY, etc
             'level'     // Unimplemented, undocumented.
         )];
-
-        // return $this;
     }
 
     public function getRelation()
@@ -202,16 +200,7 @@ class WhereMetaClause
     {
         return !in_array($operator, $this->grammar->getOperators());
     }
-
-    // abstract protected function setBinding($key, $data);
     
-    // abstract protected function getBinding($key);
-
-    // abstract protected function getGrammar();
-    
-    // abstract protected function appendBinding($key, $data);
-    
-    // abstract protected function invalidOperator($operator);
     
     protected function prepareValueAndOperator($value, $operator, $useDefault = false, $termDefault = false)
     {
