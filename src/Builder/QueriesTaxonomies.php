@@ -21,6 +21,9 @@ trait QueriesTaxonomies
             $nestedTaxonomy = $this->extractNestedTaxonomyClosures($taxonomy);
             $this->appendBinding('whereTaxonomies', $this->whereNestedTaxonomy($nestedTaxonomy, $relation));
 
+            /** @todo rewrite */
+            $this->setBinding('whereTaxonomyRelation', $this->getBinding('whereTaxonomyRelation') ?: [] + [$level => $relation]);
+
             return $this;
         }
 
@@ -29,6 +32,9 @@ trait QueriesTaxonomies
         if ($field instanceof Closure) {
             $nestedTaxonomy = $this->extractNestedTaxonomyClosures($field, $taxonomy);
             $this->appendBinding('whereTaxonomies', $this->whereNestedTaxonomy($nestedTaxonomy, $relation));
+
+            /** @todo rewrite */
+            $this->setBinding('whereTaxonomyRelation', $this->getBinding('whereTaxonomyRelation') ?: [] + [$level => $relation]);
 
             return $this;
         }
@@ -129,6 +135,7 @@ trait QueriesTaxonomies
         }
 
         $nestedTaxonomy->replaceQuery($query);
+
         return $nestedTaxonomy;
     }
 
