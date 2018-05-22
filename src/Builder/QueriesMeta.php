@@ -20,7 +20,6 @@ trait QueriesMeta
     public function whereMeta($column, $operator = null, $value = null, $type = null, $relation = null, $level = 1)
     {
         $clause = new WhereMetaClause($this->getGrammar());
-        $query = $clause->build($column, $operator, $value, $type, $relation, $level);
 
         foreach ($clause->build($column, $operator, $value, $type, $relation, $level) as $where) {
             $this->appendBinding('whereMetas', $where);
