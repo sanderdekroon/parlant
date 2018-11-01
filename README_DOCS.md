@@ -1,3 +1,4 @@
+
 # Parlant
 
 Parlant is a PHP library to query posts within WordPress in an expressive way. Get rid of the messy WP_Query array's and start writing expressive queries.
@@ -35,8 +36,8 @@ To start building queries, simply start by calling the static method `type()` on
 
 These methods return a `PosttypeBuilder` instance on which you can chain multiple methods. End a query by calling `get()` to get all results of the query.
 
-Although Parlant uses WP_Query in the background, it overrides some of it's default settings. Parlant will, by default, return all found posts (`'posts_per_page' => -1`, remember?) instead of the default. 
-This behavior can be overwritten by changing the settings of Parlant **(@todo ADD LINK)**
+Although Parlant uses `WP_Query` in the background, it overrides some of it's default settings. Parlant will, by default, return all found posts (`'posts_per_page' => -1`) instead of the default. 
+This behavior can be overwritten by changing the settings of Parlant.
 
 For example: get all posts of posttype 'article':
 ```php
@@ -44,7 +45,7 @@ use Sanderdekroon\Parlant\Posttype as Post;
 
 $articles = Post::type('article')->get();
 ```
-The variable `$articles` will now contain an array of WP_Post instances. Alternatively, it's possible to configure Parlant to return a WP_Query instance, an array of query arguments or inject your own output formatter. **(@todo ADD LINK)**
+The variable `$articles` will now contain an array of WP_Post instances. Alternatively Parlant can be configured to return a WP_Query instance or an array of query arguments. It is also possible to inject your own output formatter. 
 
 ### Limiting results
 Besides changing Parlant's configuration, it's also possible to pass any limiting methods to the Query Builder. Instead of calling `get()` to return results, you can call `first()` to return the first result:
@@ -63,17 +64,13 @@ Use the `where()` method when specifying results. Basically, all the arguments u
 
 For example, you can specify the author by calling `where('author', 7)` on the PosttypeBuilder. Want to get all posts in 1970? Go right ahead: `where('year', 1970)`.
 
-More than 50 arguments are supported through the where method. For a lot of them Parlant has built in helpers, to make querying easier and better looking. For a full list of supported methods in Parlant ... **@todo ADD LINK TO TECHNICAL DOCS**
-
-**@todo add negating parameters **
-**@todo implement a dictionary? E.g. ID != 13 would result in posts_not_in = 13**
-
 A simple query with `where()` would look like this:
 
 ```php
 use Sanderdekroon\Parlant\Posttype as Post;
 
-// Get all articles that are within the category called 'linux', limit to 5 results.
+// Get all articles that are within the category called 'linux', 
+// limited to 5 results.
 Post::type('articles')
     ->where('category_name', 'linux')
     ->limit(5)
@@ -87,6 +84,7 @@ It's possible to add multiple where statements, apply a limiting method and orde
 Post::type('articles')
     ->where('author', '42')
     ->where('category_name', 'Meaning of Life')
+    ->orderBy('title', 'ASC')
     ->limit(14)
     ->get();
 ```
@@ -309,6 +307,8 @@ class QueryFormatter implements FormatterInterface
 
 ## Methods
 
+Below is a list of supported methods and their parameters. Some methods have not yet been implemented, but will be added in future versions.
+
 ### Returns results
 
 
@@ -356,7 +356,9 @@ class QueryFormatter implements FormatterInterface
 
 ### Ordering
 
-`orderBy($column, $direction = 'ASC')` - Will trigger a BadMethodCallException as this is unimplemented.
+`orderBy($column, $direction = null)` - Order the result by a given column. The direction parameter is optional.
+
+`order($direction)` - Specify in which direction the results should be ordered. Usually this is not needed, as the `orderBy()` method can be used to specify the direction.
 
 `groupBy()` - Will trigger a BadMethodCallException as this is unimplemented.
 
