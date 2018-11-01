@@ -45,6 +45,11 @@ class WhereClause
             list($value, $operator) = [$operator, '='];
         }
 
+        // Lastly we will check if the combination of column and operator
+        // results in a different column. For example, author != 13
+        // would result in author_not_in 13.
+        // list($column, $operator, $value) = $this->prepareColumnAndOperator($column, $operator);
+
         return [compact('column', 'operator', 'value')];
     }
 
