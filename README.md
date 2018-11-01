@@ -405,12 +405,12 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/sanderdekroon/parlant.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/sanderdekroon/parlant/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/sanderdekroon/parlant.svg?style=flat-square
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/sanderdekroon/parlant/badges/coverage.png?b=master
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/sanderdekroon/parlant.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sanderdekroon/parlant.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/sanderdekroon/parlant
 [link-travis]: https://travis-ci.org/sanderdekroon/parlant
-[link-scrutinizer]: https://scrutinizer-ci.com/g/sanderdekroon/parlant/code-structure
+[link-scrutinizer]: https://scrutinizer-ci.com/g/sanderdekroon/parlant/?branch=master
 [link-code-quality]: https://scrutinizer-ci.com/g/sanderdekroon/parlant
 [link-downloads]: https://packagist.org/packages/sanderdekroon/parlant
