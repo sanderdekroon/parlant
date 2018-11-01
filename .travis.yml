@@ -32,4 +32,5 @@ script:
 
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
+  - ls -la
   - php ocular.phar code-coverage:upload --format=php-clover clover.xml
