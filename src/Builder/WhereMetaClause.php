@@ -7,10 +7,9 @@ use InvalidArgumentException;
 
 class WhereMetaClause
 {
-
     protected $grammar;
-    protected $relation;
 
+    protected $relation;
 
     public function __construct($grammar)
     {
@@ -195,13 +194,24 @@ class WhereMetaClause
         return strtoupper($type);
     }
 
-
+    /**
+     * Wether or not the given operator is invalid.
+     * @param  string $operator
+     * @return bool
+     */
     protected function invalidOperator($operator)
     {
         return !in_array($operator, $this->grammar->getOperators());
     }
     
-    
+    /**
+     * Prepare the value and operator by applying defaults and validating the operator.
+     * @param  string  $value
+     * @param  string  $operator
+     * @param  bool $useDefault
+     * @param  bool $termDefault
+     * @return array
+     */
     protected function prepareValueAndOperator($value, $operator, $useDefault = false, $termDefault = false)
     {
         if ($useDefault) {
