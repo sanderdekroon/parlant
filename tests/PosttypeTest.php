@@ -131,4 +131,31 @@ class PosttypeTest extends TestCase
 
         $query = Posttype::type('post')->min();
     }
+
+    public function testOrderMethod()
+    {
+        $query = Posttype::type('posttype')->order('ASC')->all();
+
+        $this->assertArrayHasKey('order', $query);
+        $this->assertEquals('ASC', $query['order']);
+    }
+
+    public function testOrderByMethod()
+    {
+        $query = Posttype::type('posttype')->orderBy('title')->all();
+
+        $this->assertArrayHasKey('orderby', $query);
+        $this->assertEquals('title', $query['orderby']);
+    }
+
+    public function testOrderByMethodWithDirection()
+    {
+        $query = Posttype::type('posttype')->orderBy('author', 'DESC')->all();
+
+        $this->assertArrayHasKey('orderby', $query);
+        $this->assertEquals('author', $query['orderby']);
+
+        $this->assertArrayHasKey('order', $query);
+        $this->assertEquals('DESC', $query['order']);
+    }
 }

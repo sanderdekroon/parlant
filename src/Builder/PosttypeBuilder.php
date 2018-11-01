@@ -143,6 +143,25 @@ class PosttypeBuilder implements BuilderInterface
         return $this;
     }
 
+
+    public function order($direction)
+    {
+        $this->setBinding('order', is_string($direction) ? strtoupper($direction) : $direction);
+        return $this;
+    }
+
+
+    public function orderBy($column, $direction = null)
+    {
+        $this->setBinding('orderby', $column);
+        
+        if (!empty($direction)) {
+            return $this->order($direction);
+        }
+
+        return $this;
+    }
+
     /**
      * Prepare the value and operator. If $useDefault is true, return the default operator (=)
      * Throws an exception if the operator is not supported with the current grammer.
